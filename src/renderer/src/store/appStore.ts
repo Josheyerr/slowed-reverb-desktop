@@ -98,13 +98,15 @@ export const useAppStore = create<AppState>((set, get) => ({
   upsertCustomPreset: (preset) => {
     const list = get().customPresets.filter((p) => p.key !== preset.key)
     const next = [...list, preset]
-    set({ customPresets: next })
+    set({ customPresets: next, activePresetId: preset.key })
     void window.electronAPI?.savePresets(next)
   },
 
   deleteCustomPreset: (key) => {
     const next = get().customPresets.filter((p) => p.key !== key)
-    set({ customPresets: next })
+    const activePresetId =
+      get().activePresetId === key ? null : get().activePresetId
+    set({ customPresets: next, activePresetId })
     void window.electronAPI?.savePresets(next)
   },
 

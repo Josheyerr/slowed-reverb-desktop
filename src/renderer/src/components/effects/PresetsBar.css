@@ -35,3 +35,46 @@
 .chip--ghost {
   border-style: dashed;
 }
+
+.chip--custom.is-pending-delete {
+  color: #fff;
+  background: rgba(220, 70, 70, 0.85);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.presets-bar__save-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.presets-bar__name-input {
+  min-width: 140px;
+  max-width: 220px;
+  border-radius: 999px;
+  padding: 7px 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border-strong);
+  color: var(--text);
+  font-size: 0.8rem;
+  font-weight: 600;
+  outline: none;
+}
+
+.presets-bar__name-input::placeholder {
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.chip--confirm {
+  color: #04140f;
+  background: var(--accent);
+  border-color: transparent;
+}
+
+.chip--confirm:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
