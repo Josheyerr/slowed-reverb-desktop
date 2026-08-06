@@ -36,6 +36,8 @@ Grab **`Slowed + Reverb-*-Setup.exe`** from the [latest release](https://github.
 
 Install needs admin (Program Files). If Windows complains that it isn’t signed, hit **More info** → **Run anyway**.
 
+See what’s new in the [changelog](CHANGELOG.md).
+
 ---
 
 ## Features
