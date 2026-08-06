@@ -17,6 +17,9 @@
     <img src="https://img.shields.io/github/downloads/Josheyerr/slowed-reverb-desktop/total?style=for-the-badge&label=Downloads&color=6b8f71" alt="Downloads" />
   </a>
   <img src="https://img.shields.io/badge/Windows-x64-0a0a0c?style=for-the-badge&logo=windows&logoColor=e8e6f0" alt="Windows x64" />
+  <a href="LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-1a1a1e?style=for-the-badge&labelColor=1a1a1e&color=8a8a8e" alt="MIT License" />
+  </a>
 </p>
 
 <p align="center">
@@ -68,5 +71,5 @@ This app uses:
 ---
 
 <p align="center">
-  <sub>Slowed + Reverb · Windows</sub>
+  <sub>Slowed + Reverb · Windows · <a href="LICENSE">MIT</a></sub>
 </p>
