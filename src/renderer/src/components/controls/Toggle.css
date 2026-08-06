@@ -1,0 +1,42 @@
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 0;
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  width: 100%;
+  text-align: left;
+  transition: color 160ms ease;
+}
+
+.toggle-row.is-on {
+  color: var(--text);
+}
+
+.toggle {
+  width: 40px;
+  height: 22px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  padding: 3px;
+  display: flex;
+  transition: background 180ms ease, box-shadow 180ms ease;
+}
+
+.toggle-row.is-on .toggle {
+  background: var(--accent);
+  box-shadow: 0 0 14px var(--accent-glow);
+}
+
+.toggle__knob {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #fff;
+  transition: transform 180ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.toggle-row.is-on .toggle__knob {
+  transform: translateX(18px);
+}

@@ -1,0 +1,37 @@
+.presets-bar {
+  padding: 0 16px 12px;
+}
+
+.presets-bar__list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chip {
+  border-radius: 999px;
+  padding: 7px 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--border);
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: background 160ms ease, color 160ms ease, border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.chip:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.chip.is-active {
+  color: #04140f;
+  background: var(--accent);
+  border-color: transparent;
+  box-shadow: 0 0 18px var(--accent-glow);
+}
+
+.chip--ghost {
+  border-style: dashed;
+}

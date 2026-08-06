@@ -1,0 +1,45 @@
+appId: studio.slowedandreverb.desktop
+productName: Slowed + Reverb
+directories:
+  output: release
+  buildResources: build
+compression: maximum
+electronLanguages:
+  - en-US
+files:
+  - out/**/*
+  - package.json
+  - '!**/node_modules/ffmpeg-static/ffmpeg.exe'
+  - '!**/node_modules/youtube-dl-exec/bin/**'
+extraResources:
+  - from: node_modules/ffmpeg-static/ffmpeg.exe
+    to: ffmpeg/ffmpeg.exe
+  - from: node_modules/youtube-dl-exec/bin/yt-dlp.exe
+    to: yt-dlp/yt-dlp.exe
+win:
+  icon: build/icon.ico
+  target:
+    - target: nsis
+      arch:
+        - x64
+  artifactName: ${productName}-${version}-Setup.${ext}
+nsis:
+  oneClick: false
+  perMachine: true
+  allowToChangeInstallationDirectory: true
+  allowElevation: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: Slowed + Reverb
+  installerIcon: build/icon.ico
+  uninstallerIcon: build/icon.ico
+  installerHeaderIcon: build/icon.ico
+  installerSidebar: build/installerSidebar.bmp
+  uninstallerSidebar: build/installerSidebar.bmp
+  include: build/installer.nsh
+publish:
+  provider: github
+  owner: Josheyerr
+  repo: slowed-reverb-desktop
+  private: false
+  releaseType: release

@@ -1,0 +1,62 @@
+.splash {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-content: center;
+  justify-items: center;
+  gap: 18px;
+  background:
+    radial-gradient(900px 500px at 50% 35%, rgba(61, 222, 168, 0.14), transparent 55%),
+    radial-gradient(700px 400px at 80% 10%, rgba(110, 90, 255, 0.08), transparent 50%),
+    linear-gradient(165deg, #0c0c12 0%, #07070a 45%, #0a0b10 100%);
+}
+
+.splash__mark {
+  position: relative;
+  width: 112px;
+  height: 112px;
+  display: grid;
+  place-items: center;
+}
+
+.splash__logo {
+  width: 96px;
+  height: 96px;
+  border-radius: 22px;
+  object-fit: cover;
+  position: relative;
+  z-index: 1;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.45);
+}
+
+.splash__glow {
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--accent-glow), transparent 68%);
+  filter: blur(8px);
+  opacity: 0.7;
+}
+
+.splash__title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1.05rem;
+  letter-spacing: 0.02em;
+  color: var(--text);
+}
+
+.splash__title span {
+  color: var(--accent);
+}
+
+.splash__bar {
+  width: 120px;
+  height: 3px;
+  border-radius: 999px;
+  transform-origin: left center;
+  background: linear-gradient(90deg, #2bb889, var(--accent));
+  box-shadow: 0 0 12px var(--accent-glow);
+}

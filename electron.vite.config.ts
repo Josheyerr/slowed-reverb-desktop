@@ -1,0 +1,44 @@
+import { resolve } from 'path'
+import { defineConfig, externalizeDepsPlugin } from 'electron-vite'
+import react from '@vitejs/plugin-react'
+
+export default defineConfig({
+  main: {
+    plugins: [externalizeDepsPlugin()],
+    define: {
+      __UPDATE_FEED_TOKEN__: JSON.stringify(process.env.UPDATE_FEED_TOKEN || ''),
+      __UPDATE_OWNER__: JSON.stringify(
+        process.env.UPDATE_OWNER || 'Josheyerr'
+      ),
+      __UPDATE_REPO__: JSON.stringify(
+        process.env.UPDATE_REPO || 'slowed-reverb-desktop'
+      )
+    },
+    build: {
+      rollupOptions: {
+        input: {
+          index: resolve(__dirname, 'src/main/index.ts')
+        }
+      }
+    }
+  },
+  preload: {
+    plugins: [externalizeDepsPlugin()],
+    build: {
+      rollupOptions: {
+        input: {
+          index: resolve(__dirname, 'src/preload/index.ts')
+        }
+      }
+    }
+  },
+  renderer: {
+    resolve: {
+      alias: {
+        '@renderer': resolve('src/renderer/src'),
+        '@shared': resolve('src/shared')
+      }
+    },
+    plugins: [react()]
+  }
+})
