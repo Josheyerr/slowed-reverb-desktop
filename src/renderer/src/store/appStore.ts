@@ -37,7 +37,6 @@ type AppState = {
   activeTrackId: string | null
   isPlaying: boolean
   currentTime: number
-  volume: number
   batchQueue: BatchJob[]
   exportProgress: ExportProgress
 
@@ -56,7 +55,6 @@ type AppState = {
   setActiveTrack: (id: string | null) => void
   setPlaying: (v: boolean) => void
   setCurrentTime: (t: number) => void
-  setVolume: (v: number) => void
 
   setBatchQueue: (jobs: BatchJob[]) => void
   setExportProgress: (p: ExportProgress) => void
@@ -71,7 +69,6 @@ export const useAppStore = create<AppState>((set, get) => ({
   activeTrackId: null,
   isPlaying: false,
   currentTime: 0,
-  volume: 1,
   batchQueue: [],
   exportProgress: null,
 
@@ -148,7 +145,6 @@ export const useAppStore = create<AppState>((set, get) => ({
   setActiveTrack: (id) => set({ activeTrackId: id, currentTime: 0 }),
   setPlaying: (v) => set({ isPlaying: v }),
   setCurrentTime: (t) => set({ currentTime: t }),
-  setVolume: (v) => set({ volume: Math.min(1, Math.max(0, v)) }),
   setBatchQueue: (jobs) => set({ batchQueue: jobs }),
   setExportProgress: (p) => set({ exportProgress: p })
 }))
