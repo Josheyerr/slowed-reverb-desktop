@@ -45,6 +45,7 @@ function AppShell() {
   const setCurrentTime = useAppStore((s) => s.setCurrentTime)
   const setExportProgress = useAppStore((s) => s.setExportProgress)
   const setCustomPresets = useAppStore((s) => s.setCustomPresets)
+  const volume = useAppStore((s) => s.volume)
 
   const activeReadyKey = useAppStore((s) => {
     const t = s.tracks.find((x) => x.id === s.activeTrackId)
@@ -95,6 +96,7 @@ function AppShell() {
   useEffect(() => {
     const engine = new AudioEngine(settings)
     engineRef.current = engine
+    engine.setVolume(useAppStore.getState().volume)
     const started = performance.now()
     void engine.initGraph().then(() => {
       setAnalyser(engine.analyserNode)
@@ -144,6 +146,10 @@ function AppShell() {
     engine.setBypass(abBypass)
     void engine.updateSettings(settings)
   }, [settings, abBypass])
+
+  useEffect(() => {
+    engineRef.current?.setVolume(volume)
+  }, [volume])
 
   useEffect(() => {
     let raf = 0

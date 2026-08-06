@@ -14,6 +14,12 @@ const PRESETS_FILE = 'custom-presets.json'
 
 const isDev = !app.isPackaged
 
+// Keep packaged and `npm run dev` from sharing Chromium disk caches (GPUCache).
+// Must run before ready / single-instance lock (lock is scoped to userData).
+if (isDev) {
+  app.setPath('userData', `${app.getPath('userData')}-dev`)
+}
+
 function createWindow(): BrowserWindow {
   const mainWindow = new BrowserWindow({
     width: 1280,
@@ -150,15 +156,28 @@ function registerIpc(): void {
   registerUpdaterIpc()
 }
 
-app.whenReady().then(() => {
-  registerIpc()
-  createWindow()
-  initAutoUpdater()
-
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+const gotTheLock = app.requestSingleInstanceLock()
+if (!gotTheLock) {
+  app.quit()
+} else {
+  app.on('second-instance', () => {
+    const win = BrowserWindow.getAllWindows()[0]
+    if (win) {
+      if (win.isMinimized()) win.restore()
+      win.focus()
+    }
   })
-})
+
+  app.whenReady().then(() => {
+    registerIpc()
+    createWindow()
+    initAutoUpdater()
+
+    app.on('activate', () => {
+      if (BrowserWindow.getAllWindows().length === 0) createWindow()
+    })
+  })
+}
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') app.quit()
