@@ -24,12 +24,15 @@ export function BottomBar({
     activeTrackId,
     isPlaying,
     currentTime,
+    volume,
+    setVolume,
     abBypass,
     setAbBypass,
     exportProgress
   } = useAppStore()
 
   const track = tracks.find((t) => t.id === activeTrackId)
+  const muted = volume <= 0.001
 
   return (
     <motion.footer
@@ -100,13 +103,14 @@ export function BottomBar({
       </div>
 
       <div className="bottom-bar__actions">
-        <AnimatePresence>
+        <AnimatePresence mode="popLayout" initial={false}>
           {exportProgress?.active ? (
             <motion.div
+              key="export-progress"
               className="export-progress"
               initial={{ opacity: 0, width: 0 }}
               animate={{ opacity: 1, width: 'auto' }}
-              exit={{ opacity: 0 }}
+              exit={{ opacity: 0, width: 0 }}
               transition={transitionBase}
             >
               <span>{exportProgress.label}</span>
@@ -118,7 +122,43 @@ export function BottomBar({
                 />
               </div>
             </motion.div>
-          ) : null}
+          ) : (
+            <motion.div
+              key="volume"
+              className={`volume-control ${muted ? 'is-muted' : ''}`}
+              initial={{ opacity: 0, width: 0 }}
+              animate={{ opacity: 1, width: 'auto' }}
+              exit={{ opacity: 0, width: 0 }}
+              transition={transitionBase}
+            >
+              <span className="volume-control__icon" aria-hidden>
+                {muted ? (
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                    <path d="M4.3 3.7 3 5l4.2 4.2H3v5.6h3.8L12 20.8V9.8l5.7 5.7c-.6.5-1.3.9-2.1 1.1v2.1a7.9 7.9 0 0 0 3.5-1.7L19 19l1.3-1.3L4.3 3.7zM16.5 12c0-.6-.1-1.2-.3-1.7l1.5-1.5A5.9 5.9 0 0 1 18.7 12c0 1.1-.3 2.1-.8 3l-1.5-1.5c.1-.5.1-1 .1-1.5zM12 4l-1.8 1.8L12 7.6V4z" />
+                  </svg>
+                ) : volume < 0.4 ? (
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                    <path d="M3 9.2v5.6h3.8L12 20.8V3.2L6.8 9.2H3zm10.5 2.8c0-.6-.1-1.2-.3-1.7l1.5-1.5A5.9 5.9 0 0 1 15.7 12c0 1.1-.3 2.1-.8 3l-1.5-1.5c.1-.5.1-1 .1-1.5z" />
+                  </svg>
+                ) : (
+                  <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                    <path d="M3 9.2v5.6h3.8L12 20.8V3.2L6.8 9.2H3zm13.5 2.8A5.9 5.9 0 0 0 14.7 8l1.5-1.5A7.9 7.9 0 0 1 18.7 12a7.9 7.9 0 0 1-2.5 5.5L14.7 16a5.9 5.9 0 0 0 1.8-4z" />
+                  </svg>
+                )}
+              </span>
+              <input
+                type="range"
+                className="volume-control__slider"
+                min={0}
+                max={1}
+                step={0.01}
+                value={volume}
+                aria-label="Volume"
+                title={`${Math.round(volume * 100)}%`}
+                onChange={(e) => setVolume(Number(e.target.value))}
+              />
+            </motion.div>
+          )}
         </AnimatePresence>
         <motion.button
           type="button"

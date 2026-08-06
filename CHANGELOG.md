@@ -5,6 +5,14 @@ All notable changes to **Slowed + Reverb** are documented here.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.8] — 2026-08-06
+
+### Added
+- Preview **volume** control in the bottom bar (speaker + slider). Adjusts live playback only — exports stay at full level.
+
+### Fixed
+- During export, **“Rendering…”** no longer overlaps the volume slider. Volume and export progress swap cleanly; volume returns when export finishes.
+
 ## [1.0.6] — 2026-08-06
 
 ### Fixed
@@ -47,6 +55,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Background auto-updates from GitHub Releases
 - FFmpeg and yt-dlp bundled (no separate installs)
 
+[1.0.8]: https://github.com/Josheyerr/slowed-reverb-desktop/releases/tag/v1.0.8
 [1.0.6]: https://github.com/Josheyerr/slowed-reverb-desktop/releases/tag/v1.0.6
 [1.0.5]: https://github.com/Josheyerr/slowed-reverb-desktop/releases/tag/v1.0.5
 [1.0.4]: https://github.com/Josheyerr/slowed-reverb-desktop/releases

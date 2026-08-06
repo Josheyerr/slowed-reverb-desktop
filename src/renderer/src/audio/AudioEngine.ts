@@ -38,6 +38,7 @@ export class AudioEngine {
   private lastPreDelay: number
   private onEndedCallback: (() => void) | null = null
   private analyser: AnalyserNode
+  private volumeGain: GainNode
 
   constructor(settings: RemixSettings) {
     this.ctx = new AudioContext()
@@ -46,6 +47,8 @@ export class AudioEngine {
     this.lastPreDelay = settings.preDelaySeconds
     this.analyser = this.ctx.createAnalyser()
     this.analyser.fftSize = 2048
+    this.volumeGain = this.ctx.createGain()
+    this.volumeGain.gain.value = 1
   }
 
   get context(): AudioContext {
@@ -102,8 +105,14 @@ export class AudioEngine {
     }
     this.graph = await buildEffectGraph(this.ctx, this.settings)
     this.graph.output.connect(this.analyser)
-    this.analyser.connect(this.ctx.destination)
+    this.analyser.connect(this.volumeGain)
+    this.volumeGain.connect(this.ctx.destination)
     applyRemixSettings(this.graph, this.settings, this.bypass)
+  }
+
+  setVolume(volume: number): void {
+    const v = Math.min(1, Math.max(0, volume))
+    this.volumeGain.gain.value = v
   }
 
   async loadBuffer(buffer: AudioBuffer): Promise<void> {
